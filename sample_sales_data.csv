@@ -1,0 +1,6 @@
+Order ID,Order Date,Customer ID,Segment,Country,City,Category,Sales,Quantity,Discount,Profit
+1,2024-01-10,C001,Consumer,India,Delhi,Furniture,250.0,2,0.1,50.0
+2,2024-01-11,C002,Corporate,India,Mumbai,Technology,1200.0,1,0.0,300.0
+3,2024-01-12,C001,Consumer,India,Delhi,Office Supplies,150.0,3,0.2,20.0
+4,2024-01-13,C003,Home Office,India,Chennai,Furniture,400.0,2,0.0,60.0
+5,2024-01-14,C004,Corporate,India,Bangalore,Technology,1000.0,1,0.15,200.0
