@@ -1,0 +1,58 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+df = pd.read_csv("sample_sales_data.csv")
+
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+
+
+sns.set(style="whitegrid")
+total_sales = df['Sales'].sum()
+total_profit = df['Profit'].sum()
+total_orders = df.shape[0]
+print("----- SALES SUMMARY -----")
+print(f"Total Sales: ₹{total_sales:,.2f}")
+print(f"Total Profit: ₹{total_profit:,.2f}")
+print(f"Total Orders: {total_orders}")
+print()
+plt.figure(figsize=(8,5))
+category_sales = df.groupby("Category")['Sales'].sum().sort_values()
+sns.barplot(x=category_sales.values, y=category_sales.index, palette="viridis")
+plt.title("Sales by Product Category")
+plt.xlabel("Sales in ₹")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10,6))
+subcat_profit = df.groupby("Sub-Category")['Profit'].sum().sort_values()
+sns.barplot(x=subcat_profit.values, y=subcat_profit.index, palette="magma")
+plt.title("Profit by Sub-Category")
+plt.xlabel("Profit in ₹")
+plt.tight_layout()
+plt.show()
+
+monthly_sales = df.set_index('Order Date').resample('M')['Sales'].sum()
+plt.figure(figsize=(10,5))
+monthly_sales.plot(marker='o', linestyle='-', color='blue')
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Sales in ₹")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(6,6))
+df['Segment'].value_counts().plot.pie(autopct='%1.1f%%', colors=sns.color_palette('pastel'))
+plt.title("Customer Segment Distribution")
+plt.ylabel("")
+plt.tight_layout()
+plt.show()
+
+
+plt.figure(figsize=(6,4))
+sns.heatmap(df[['Sales', 'Profit', 'Quantity', 'Discount']].corr(), annot=True, cmap="YlGnBu")
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.show()
